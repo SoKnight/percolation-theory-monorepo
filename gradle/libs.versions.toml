@@ -1,13 +1,11 @@
 [versions]
 kotlin = "2.4.20"
 clikt = "5.1.0"
-commons-math = "3.6.1"
 lets-plot-kotlin = "4.12.1"
 slf4j = "2.0.16"
 
 [libraries]
 clikt = { module = "com.github.ajalt.clikt:clikt", version.ref = "clikt" }
-commons-math = { module = "org.apache.commons:commons-math3", version.ref = "commons-math" }
 lets-plot-kotlin = { module = "org.jetbrains.lets-plot:lets-plot-kotlin-jvm", version.ref = "lets-plot-kotlin" }
 slf4j-nop = { module = "org.slf4j:slf4j-nop", version.ref = "slf4j" }
 

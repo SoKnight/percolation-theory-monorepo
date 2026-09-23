@@ -27,7 +27,6 @@ repositories {
 
 dependencies {
     implementation(libs.clikt)
-    implementation(libs.commons.math)
     implementation(libs.lets.plot.kotlin)
     runtimeOnly(libs.slf4j.nop)
 }

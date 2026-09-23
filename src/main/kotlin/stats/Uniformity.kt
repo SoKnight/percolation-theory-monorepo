@@ -1,23 +1,32 @@
 package stats
 
 import data.Lattice
-import org.apache.commons.math3.distribution.ChiSquaredDistribution
 import kotlin.math.pow
+import kotlin.math.sqrt
+
+// квантиль уровня 0.95 стандартного нормального распределения, то есть для alpha = 0.05
+private const val NORMAL_QUANTILE_95 = 1.6448536269514722
 
 /**
- * Критерий Пирсона x² для проверки равномерности заполнения по интервалам [grid].
- *
- * @property alpha уровень значимости
+ * Критерий Пирсона x² для проверки равномерности заполнения по интервалам [grid]
+ * при уровне значимости [alpha].
  */
-class Uniformity(val grid: Grid, val alpha: Double = 0.05) {
+class Uniformity(val grid: Grid) {
+
+    /** Уровень значимости, под него подобран [NORMAL_QUANTILE_95]. */
+    val alpha: Double = 0.05
 
     /** Число степеней свободы `m - 1`. */
     val df: Int = grid.m - 1
 
-    private val distribution = ChiSquaredDistribution(df.toDouble())
-
-    /** Критическое значение x² для уровня значимости [alpha]. */
-    val critical: Double = distribution.inverseCumulativeProbability(1 - alpha)
+    /**
+     * Критическое значение x² для уровня значимости [alpha] по приближению Уилсона — Хилферти:
+     * `(x² / df)^(1/3)` распределена почти нормально со средним `1 - 2 / (9 df)` и дисперсией `2 / (9 df)`.
+     * Уже при df около 50 расходится с точным значением меньше чем на 0.01.
+     */
+    val critical: Double = (2.0 / (9.0 * df)).let { correction ->
+        df * (1.0 - correction + NORMAL_QUANTILE_95 * sqrt(correction)).pow(3)
+    }
 
     /** Число занятых узлов в каждом интервале. */
     fun count(lattice: Lattice): LongArray {
@@ -38,12 +47,8 @@ class Uniformity(val grid: Grid, val alpha: Double = 0.05) {
             (counts[i] - expected).pow(2) / expected
         }
 
-    /** Вероятность получить x² не меньше [chiSquared], если заполнение равномерное. */
-    fun pValue(chiSquared: Double): Double =
-        1 - distribution.cumulativeProbability(chiSquared)
-
     /** Проходит ли [chiSquared] критерий: гипотеза о равномерности не отвергается. */
     fun passes(chiSquared: Double): Boolean =
-        pValue(chiSquared) > alpha
+        chiSquared < critical
 
 }
