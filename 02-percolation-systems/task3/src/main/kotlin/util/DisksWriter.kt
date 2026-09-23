@@ -27,7 +27,7 @@ private val DISK_EDGE_COLOR = Color(0x184F95)
 /**
  * Сохраняет круги в PNG: квадрат со стороной 1000 пикселей в рамке, круги залиты синим.
  * Вокруг квадрата поле шириной r, чтобы при [Boundary.FREE] было видно выступающие за край части.
- * При [Boundary.PERIODIC] поле шириной 2r: круги дорисовываются со сдвигом на ±L, внутри квадрата непрозрачными,
+ * При [Boundary.PERIODIC] поле шириной 2r: круги дорисовываются со сдвигом на L в обе стороны, внутри квадрата непрозрачными,
  * а за его границей полупрозрачными, чтобы было видно, как квадрат продолжается на торе.
  */
 fun Disks.writeAsPNG(p: Double, path: Path = defaultPath(p, "png")): Path {
@@ -44,7 +44,7 @@ fun Disks.writeAsPNG(p: Double, path: Path = defaultPath(p, "png")): Path {
         color = SQUARE_COLOR
         fill(square)
 
-        // на торе круг у края виден и с противоположной стороны: рисуются сдвиги на ±L
+        // на торе круг у края виден и с противоположной стороны: рисуются сдвиги на L в обе стороны
         val shifts = if (boundary == Boundary.PERIODIC) listOf(-size, 0.0, size) else listOf(0.0)
 
         fun drawDisks() {
