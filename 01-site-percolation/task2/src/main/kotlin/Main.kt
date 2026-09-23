@@ -1,4 +1,3 @@
-
 import cli.AppCommand
 import com.github.ajalt.clikt.core.context
 import com.github.ajalt.clikt.core.main

@@ -5,9 +5,7 @@ lets-plot-kotlin = "4.12.1"
 slf4j = "2.0.16"
 
 [libraries]
+kotlin-gradle-plugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
 clikt = { module = "com.github.ajalt.clikt:clikt", version.ref = "clikt" }
 lets-plot-kotlin = { module = "org.jetbrains.lets-plot:lets-plot-kotlin-jvm", version.ref = "lets-plot-kotlin" }
 slf4j-nop = { module = "org.slf4j:slf4j-nop", version.ref = "slf4j" }
-
-[plugins]
-kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
