@@ -21,7 +21,9 @@ fun AppCommand.main() {
         val bonds = generator.generateBonds(sites, p)
         stats.accept(bonds.concentration)
 
-        if (size <= MAX_PRINT_SIZE && !quiet) {
+        val printed = size <= MAX_PRINT_SIZE && !quiet
+
+        if (printed) {
             echo("Испытание ${trial + 1}: занято ${bonds.occupied} связей из ${bonds.total}, концентрация ${bonds.concentration.format()}")
             echo(bonds.render(sites))
             echo()
@@ -33,8 +35,9 @@ fun AppCommand.main() {
             echo()
         }
 
-        if (png && trial == 0) {
-            val path = bonds.writeAsPNG(sites, p = p)
+        // картинками сохраняются напечатанные испытания, чтобы сверять с ASCII, а если печати нет — только первое
+        if (png && (printed || trial == 0)) {
+            val path = bonds.writeAsPNG(sites, p, trial + 1)
             echo("Решётка сохранена в: $path")
         }
     }
