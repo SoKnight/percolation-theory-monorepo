@@ -10,4 +10,5 @@ plugins {
 rootProject.name = "percolation-theory-monorepo"
 
 // практическая работа №1
+include(":01-site-percolation:task1")
 include(":01-site-percolation:task2")
