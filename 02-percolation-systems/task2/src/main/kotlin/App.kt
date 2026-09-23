@@ -11,6 +11,7 @@ private const val MAX_PRINT_SIZE = 50
  */
 fun AppCommand.main() {
     val generator = seed?.let { Generator(SplittableRandom(it)) } ?: Generator()
+
     val siteStats = DoubleSummaryStatistics()
     val bondStats = DoubleSummaryStatistics()
     val totalBondStats = DoubleSummaryStatistics()
