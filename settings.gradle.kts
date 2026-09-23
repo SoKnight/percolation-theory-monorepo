@@ -12,3 +12,6 @@ rootProject.name = "percolation-theory-monorepo"
 // практическая работа №1
 include(":01-site-percolation:task1")
 include(":01-site-percolation:task2")
+
+// практическая работа №2
+include(":02-percolation-systems:task1")
