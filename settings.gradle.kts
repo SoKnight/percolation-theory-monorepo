@@ -17,3 +17,7 @@ include(":01-site-percolation:task2")
 include(":02-percolation-systems:task1")
 include(":02-percolation-systems:task2")
 include(":02-percolation-systems:task3")
+
+// практическая работа №3
+include(":03-hoshen-kopelman:task1")
+include(":03-hoshen-kopelman:task2")
