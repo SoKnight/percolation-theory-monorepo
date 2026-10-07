@@ -21,3 +21,7 @@ include(":02-percolation-systems:task3")
 // практическая работа №3
 include(":03-hoshen-kopelman:task1")
 include(":03-hoshen-kopelman:task2")
+
+// практическая работа №4
+include(":04-percolation-threshold:task1")
+include(":04-percolation-threshold:task2")
