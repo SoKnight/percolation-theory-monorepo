@@ -3,11 +3,11 @@ package cli
 import com.github.ajalt.clikt.core.BadParameterValue
 import com.github.ajalt.clikt.core.CliktCommand
 import com.github.ajalt.clikt.core.Context
-import com.github.ajalt.clikt.parameters.options.*
-import com.github.ajalt.clikt.parameters.types.boolean
+import com.github.ajalt.clikt.parameters.options.option
+import com.github.ajalt.clikt.parameters.options.prompt
+import com.github.ajalt.clikt.parameters.options.validate
 import com.github.ajalt.clikt.parameters.types.double
 import com.github.ajalt.clikt.parameters.types.int
-import com.github.ajalt.clikt.parameters.types.long
 import com.github.ajalt.clikt.parameters.types.restrictTo
 import main
 
@@ -44,14 +44,6 @@ class AppCommand : CliktCommand() {
         .int()
         .restrictTo(min = 100)
         .prompt("Число испытаний", default = 100)
-
-    val seed by option("--seed", help = "seed генератора для воспроизводимых результатов")
-        .long()
-
-    val parallel by option("--parallel", help = "проводить испытания параллельно")
-        .boolean()
-        .optionalValue(true)
-        .default(true)
 
     override fun help(context: Context): String =
         "Вероятность возникновения перколяционного кластера в задаче узлов на квадратной решётке L x L"
